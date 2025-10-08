@@ -1,321 +1,305 @@
-<!--
-  Save this file as index.html
-  Folder structure (recommended):
-    MyDiaryProject/
-      ├ index.html   <-- this file
-      └ img/
-         ├ flower.jpg     <-- page background (replace with your purple collage)
-         ├ girl.jpg       <-- circular person photo
-         ├ butterfly.png  <-- optional decorative butterfly (or remove)
-         ├ samplevideo.mp4 <-- optional local video if you use local file
-         └ flute.mp3      <-- OPTIONAL: if you have an mp3 of the flute sound
-
-  NOTES about audio:
-  - Option A (preferred for immediate playback if you have an mp3): place flute.mp3 in img/ and click "Play Relax Music".
-  - Option B (YouTube): replace the iframe src below with your YouTube embed URL (format: https://www.youtube.com/embed/VIDEO_ID) and user can click play in the embedded player. Browsers often block autoplay with sound, so user interaction is recommended.
--->
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Diary — Portfolio</title>
-  <style>
-    /* reset */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>My Diary — Portfolio</title>
+        <style>
+            /* reset */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+                text-decoration: none;
+            }
+            a {
+                color: var(--accent);
+                padding: 10px 20px;
+                display: block;
+            }
+            body {
+                height: 100%;
+                width: 100%;
+            }
 
-    :root{
-      --accent:#8e1f2d;
-      --muted:#f0e7f7;
-      --card:#ffffff;
-      --text:#261616;
-    }
+            :root {
+                --accent: #8e1f2d;
+                --muted: #f0e7f7;
+                --card: #ffffff;
+                --text: #261616;
+            }
 
-    body{
-      font-family: "Poppins", system-ui, sans-serif;
-      color:var(--text);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:2rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(0,0,0,0.15)),
-                  url("flowry.jpg") center/cover no-repeat;
-      transition: background 0.3s ease;
-    }
+            body {
+                font-family: "Poppins", system-ui, sans-serif;
+                color: var(--text);
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0 2rem;
+                background: linear-gradient(
+                        180deg,
+                        rgba(255, 255, 255, 0.5),
+                        rgba(0, 0, 0, 0.15)
+                    ),
+                    url("flower.jpg") center/cover no-repeat;
+                transition: background 0.3s ease;
+            }
+            .piku {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                height: 150px;
+            }
 
-    /* page wrapper */
-    .frame{
-      width:100%;
-      max-width:1100px;
-      background: rgba(255,255,255,0.7);
-      border-radius:12px;
-      padding:24px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-      backdrop-filter: blur(2px);
-    }
+            /* basic heading */
+            h1 {
+                color: var(--accent);
+                font-size: 1.9rem;
+                margin-bottom: 6px;
+                text-shadow: 0 2px 6px rgba(142, 31, 45, 0.12);
+            }
+            h2 {
+                font-family: "Segoe Script", "Brush Script MT", cursive;
+                color: #4a2a2a;
+                margin-bottom: 12px;
+            }
 
-    /* basic heading */
-    h1{
-      color:var(--accent);
-      font-size:1.9rem;
-      margin-bottom:6px;
-      text-shadow:0 2px 6px rgba(142,31,45,0.12);
-    }
-    h2{font-family: "Segoe Script", "Brush Script MT", cursive; color:#4a2a2a; margin-bottom:12px}
+            /* sections */
+            section {
+                min-height: 100vh;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                animation: fadeIn 0.45s ease both;
+            }
+            section > div {
+                max-width: 1100px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 12px;
+                padding: 24px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(2px);
+            }
 
-    /* sections */
-    section{display:none}
-    section.active{display:block; animation:fadeIn .45s ease both;}
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(8px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-    @keyframes fadeIn{
-      from{opacity:0; transform: translateY(8px)}
-      to{opacity:1; transform: translateY(0)}
-    }
+            /* layout for about page */
+            .container {
+                display: flex;
+                gap: 28px;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
 
-    /* layout for about page */
-    .container{
-      display:flex;
-      gap:28px;
-      align-items:flex-start;
-      flex-wrap:wrap;
-    }
+            /* circular photo */
+            .circle {
+                width: 160px;
+                height: 160px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 6px solid var(--accent);
+                background: url("./buttery.jpg") center/cover no-repeat;
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+                flex: 0 0 160px;
+            }
 
-    /* circular photo */
-    .circle{
-      width:160px;
-      height:160px;
-      border-radius:50%;
-      overflow:hidden;
-      border:6px solid var(--accent);
-      background: url("./buttery.jpg") center/cover no-repeat;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.15);
-      flex:0 0 160px;
-    }
+            @keyframes float {
+                0% {
+                    transform: translateY(0) rotate(0);
+                }
+                50% {
+                    transform: translateY(-10px) rotate(6deg);
+                }
+                100% {
+                    transform: translateY(0) rotate(0);
+                }
+            }
 
-    /* decorative butterfly */
-    .butterfly{
-      position: absolute;
-      right:28px;
-      top:18px;
-      width:72px;
-      height:72px;
-      background: url("flower.jpg") center/contain no-repeat;
-      opacity:0.95;
-      transform-origin:center;
-      animation: float 6s linear infinite;
-      cursor:default;
-      /* If you don't want this, remove the element from HTML or delete this rule */
-    }
-    @keyframes float{
-      0%{transform: translateY(0) rotate(0)}
-      50%{transform: translateY(-10px) rotate(6deg)}
-      100%{transform: translateY(0) rotate(0)}
-    }
+            /* text area */
+            .text {
+                flex: 1;
+                min-width: 260px;
+                line-height: 1.6;
+                text-align: justify;
+                color: #2e1717;
+                font-size: 1rem;
+            }
 
-    /* text area */
-    .text{
-      flex:1;
-      min-width:260px;
-      line-height:1.6;
-      text-align:justify;
-      color: #2e1717;
-      font-size:1rem;
-    }
+            /* buttons */
+            .btn {
+                background: #fff;
+                border: 2px solid var(--accent);
+                color: var(--accent);
 
-    /* buttons */
-    .btn{
-      background:#fff;
-      border:2px solid var(--accent);
-      color:var(--accent);
-      padding:10px 20px;
-      border-radius:30px;
-      font-weight:600;
-      cursor:pointer;
-      box-shadow: 4px 6px 14px rgba(0,0,0,0.1);
-      transition: all .18s ease;
-      margin-top:12px;
-      display:inline-block;
-    }
-    .btn:hover{transform:translateY(-3px); box-shadow: 8px 12px 30px rgba(0,0,0,0.12)}
+                border-radius: 30px;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 4px 6px 14px rgba(0, 0, 0, 0.1);
+                transition: all 0.18s ease;
+                margin-top: 12px;
+                display: inline-block;
+            }
+            .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 8px 12px 30px rgba(0, 0, 0, 0.12);
+            }
 
-    /* video styling */
-    .video-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      margin-top:8px;
-    }
-    video{
-      width:90%;
-      max-width:720px;
-      border-radius:14px;
-      border:6px solid rgba(142,31,45,0.06);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-    }
+            /* video styling */
+            .video-wrap {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 14px;
+                margin-top: 8px;
+            }
+            video {
+                width: 90%;
+                max-width: 720px;
+                border-radius: 14px;
+                border: 6px solid rgba(142, 31, 45, 0.06);
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+            }
 
-    /* audio controls row */
-    .audio-row{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-    .note{
-      font-size:.9rem;
-      color:#333;
-      opacity:0.9;
-    }
+            /* audio controls row */
+            .audio-row {
+                margin-top: 12px;
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .note {
+                font-size: 0.9rem;
+                color: #333;
+                opacity: 0.9;
+            }
 
-    /* responsive */
-    @media (max-width:820px){
-      .container{flex-direction:column; align-items:center; text-align:center}
-      .text{text-align:left; padding:0 8px}
-      .butterfly{right:8px; top:8px}
-    }
+            /* responsive */
+            @media (max-width: 820px) {
+                .container {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                .text {
+                    text-align: left;
+                    padding: 0 8px;
+                }
+            }
+            @media screen and (max-width: 480px) {
+                body {
+                    padding: 0 8px;
+                }
+                .text {
+                    text-align: center;
+                    padding: 0 8px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <img src="./vai.jpg" class="piku" />
+        <!-- PAGE 1 -->
+        <section id="page1">
+            <div>
+                <h1>Welcome to My Diary 🌸</h1>
+                <h2>Start here</h2>
+                <p class="note">
+                    This is the Home page — click the button to go to About
+                    page.
+                </p>
+                <div style="margin-top: 18px; text-align: center">
+                    <button class="btn">
+                        <a href="#page2"> Go to About </a>
+                    </button>
+                </div>
+            </div>
+        </section>
 
-  </style>
-</head>
-<body>
+        <!-- PAGE 2 (About) -->
+        <section id="page2">
+            <div>
+                <h1>About Me</h1>
+                <h2>Hello Everyone 👋</h2>
 
-  <div class="frame">
+                <div class="container">
+                    <div class="circle" aria-hidden="true"></div>
 
-    <!-- decorative butterfly: remove this div if you don't want butterfly -->
-    <div class="butterfly" aria-hidden="true"></div>
+                    <div class="text">
+                        <p>
+                            My name is <strong>___________</strong>, I'm from
+                            <strong>___________</strong>. I'm a programmer and a
+                            student. I love building simple projects and
+                            learning new technologies. I practice Python, HTML,
+                            CSS and JavaScript, and I enjoy design too.
+                        </p>
 
-    <!-- PAGE 1 -->
-    <section id="page1" class="active">
-      <h1>Welcome to My Diary 🌸</h1>
-      <h2>Start here</h2>
-      <p class="note">This is the Home page — click the button to go to About page.</p>
-      <div style="margin-top:18px; text-align:center;">
-        <button class="btn" onclick="showPage(2)">Go to About</button>
-      </div>
-    </section>
+                        <div style="margin-top: 12px">
+                            <button class="btn">
+                                <a href="#page3"> Go to Video Page </a>
+                            </button>
+                            <button class="btn" style="margin-left: 8px">
+                                <a href="#page1"> Back Home </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- PAGE 2 (About) -->
-    <section id="page2">
-      <h1>About Me</h1>
-      <h2>Hello Everyone 👋</h2>
+        <!-- PAGE 3 (Video + Music) -->
+        <section id="page3">
+            <div>
+                <h1>Relax & Watch 🎬</h1>
+                <p class="note">
+                    Watch a short video and listen to calm flute music. Replace
+                    the sample video or audio with your own files in img/
+                    folder.
+                </p>
 
-      <div class="container">
-        <div class="circle" aria-hidden="true"></div>
-
-        <div class="text">
-          <p>
-            My name is <strong>___________</strong>, I'm from <strong>___________</strong>.
-            I'm a programmer and a student. I love building simple projects and learning new technologies.
-            I practice Python, HTML, CSS and JavaScript, and I enjoy design too.
-            
-          </p>
-
-          <div style="margin-top:12px;">
-            <button class="btn" onclick="showPage(3)">Go to Video Page</button>
-            <button class="btn" style="margin-left:8px" onclick="showPage(1)">Back Home</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGE 3 (Video + Music) -->
-    <section id="page3">
-      <h1>Relax & Watch 🎬</h1>
-      <p class="note">Watch a short video and listen to calm flute music. Replace the sample video or audio with your own files in img/ folder.</p>
-
-      <div class="video-wrap">
-        <!-- local video (replace samplevideo.mp4 if you have local video) -->
-        <video controls id="localVideo">
-          <source src="img/samplevideo.mp4" type="video/mp4">
-          Your browser doesn't support video tag. Replace <code>img/samplevideo.mp4</code> with your file.
-        </video>
-
-        <!-- Audio Option A: Local MP3 (recommended if you have mp3)
-             Put your MP3 as img/flute.mp3 and this will play when user clicks Play -->
-        <div class="audio-row">
-          <button class="btn" id="playAudioBtn">Play Relax Music (mp3)</button>
-          <button class="btn" id="pauseAudioBtn">Pause Audio</button>
-
-          <!-- hidden audio element (use if you have mp3) -->
-          <audio id="relaxAudio" preload="auto">
-            <source src="img/flute.mp3" type="audio/mpeg">
-            <!-- If you prefer YouTube, see below -->
-          </audio>
-        </div>
-
-        <div style="max-width:720px; width:100%; margin-top:6px; text-align:center;">
-          <p class="note">Or play via YouTube (click play inside the player):</p>
-          <!--
-             Option B: YouTube embed. Replace VIDEO_ID with your YouTube video id,
-             e.g. https://www.youtube.com/embed/VIDEO_ID
-             Note: Autoplay with sound may be blocked by browsers; user should press play.
-          -->
-          <div style="aspect-ratio:16/9; width:100%; max-width:720px;">
-            <iframe id="ytPlayer" width="100%" height="100%" src="https://www.youtube.com/embed/2fGVsLr6hCc" title="KRISHNA FLUTE MUSIC COMPLETE VERSION | STARPLUS MAHABHARAT" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                
-            </iframe>
-            
-          </div>
-        </div>
-
-        <div style="margin-top:12px;">
-          <button class="btn" onclick="showPage(1)">Back to Home</button>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    /* simple page switcher */
-    function showPage(n){
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById('page'+n).classList.add('active');
-      // pause audio/video when switching away
-      const audio = document.getElementById('relaxAudio');
-      const video = document.getElementById('localVideo');
-      if(n !== 3){
-        if(audio && !audio.paused) audio.pause();
-        if(video && !video.paused) video.pause();
-      }
-    }
-
-    /* audio controls for local mp3 */
-    const playBtn = document.getElementById('playAudioBtn');
-    const pauseBtn = document.getElementById('pauseAudioBtn');
-    const audio = document.getElementById('relaxAudio');
-
-    playBtn && playBtn.addEventListener('click', () => {
-      if(audio){
-        audio.play().catch(err => {
-          // autoplay might be blocked; user clicked so should be allowed — but catch if any error
-          console.warn('Audio play failed:', err);
-          alert('Cannot play audio automatically — please allow audio in your browser or click Play again.');
-        });
-      } else {
-        alert('No local audio file found. Put your mp3 at img/flute.mp3 or use the YouTube player below.');
-      }
-    });
-
-    pauseBtn && pauseBtn.addEventListener('click', () => {
-      if(audio) audio.pause();
-    });
-
-    /* small improvement: if user navigates directly to page 3 via hash, show it */
-    (function(){
-      const hash = location.hash.replace('#','');
-      if(hash === 'page3') showPage(3);
-      else if(hash === 'page2') showPage(2);
-      else showPage(1);
-    })();
-
-    /* OPTIONAL: remove butterfly by CSS if you don't want it:
-       document.querySelector('.butterfly').remove();
-    */
-  </script>
+                <div class="video-wrap">
+                    <p class="note">
+                        Or play via YouTube (click play inside the player:)
+                    </p>
+                    <div
+                        style="
+                            aspect-ratio: 16/9;
+                            width: 100%;
+                            max-width: 720px;
+                        "
+                    >
+                        <iframe
+                            id="ytPlayer"
+                            width="100%"
+                            height="100%"
+                            src="https://www.youtube.com/embed/2fGVsLr6hCc"
+                            title="KRISHNA FLUTE MUSIC COMPLETE VERSION | STARPLUS MAHABHARAT"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                        >
+                        </iframe>
+                    </div>
+                    <button class="btn">
+                        <a href="#page1"> Back to Home </a>
+                    </button>
+                </div>
+            </div>
+        </section> 
 </body>
 </html>
